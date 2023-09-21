@@ -41,18 +41,20 @@
                 <th>Trade Date & Time</th>
                 <th>Asset</th>
                 <th>Position</th>
-                <th>ProfitorLoss</th>
+                <th>Profit/Loss (%)</th>
                 <th>Edit</th>
             </tr>
             <tr>
                 {%for atool in all_fiancial_tools%}
+                {%if session['user_id'] == atool.user_id%}
                 <td>{{atool.name}}</td>
                 <td>{{atool.trade_date}}</td>
                 <td>{{atool.asset}}</td>
                 <td>{{atool.position}}</td>
-                <td>{{atool.profitorloss}}</td>
-            <th><a href="/edit/journal/{{atool.id}}">Edit</a></th>
-            <th><a href='/delete/journal/{{atool.id}}'>Stop Tracking</a></th>
+                <td>{{atool.profitorLoss}}</td>
+                <th><a href="/edit/journal/{{atool.id}}">Edit</a></th>
+                <th><a href='/delete/journal/{{atool.id}}'>Stop Tracking</a></th>
+                {%endif%}
             </tr>
             {%endfor%}
         </table>
@@ -95,7 +97,7 @@
                                 <input type="text" class="form-control" id="position" name="position">
                             </div>
                             <div class="form-group">
-                                <label for="profitorloss">ProfitorLoss:</label>
+                                <label for="profitorloss">Profit/Loss:</label>
                                 <input type="number" class="form-control" id="profitorloss" name="profitorloss">
                             </div>
                             <button type="submit" class="btn btn-primary">Track Asset</button>
@@ -104,4 +106,3 @@
                 </div>
             </div>
         </div>
-        

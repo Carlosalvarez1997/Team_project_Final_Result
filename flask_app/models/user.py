@@ -11,7 +11,7 @@ bcrypt = Bcrypt(app)
 
 
 class User:
-    db = "finance_schema" #which database are you using for this project
+    db = "finance" #which database are you using for this project
     def __init__(self, data):
         self.id = data['id']
         self.first_name = data['first_name']
@@ -77,7 +77,7 @@ class User:
     def update_user(cls,data):
         query = """
         UPDATE user
-        SET first_name = %(first_name)s, last_name = %(last_name)s, email = %(email)s, 
+        SET first_name = %(first_name)s, last_name = %(last_name)s, email = %(email)s,
         WHERE id = %(id)s
         """
         result = connectToMySQL(cls.db).query_db(query,data)

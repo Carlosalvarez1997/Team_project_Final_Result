@@ -37,6 +37,9 @@ def index():
     else:
         # print(session['first_name'])
         all_fiancial_tools = tool.Tool.get_all_assets_by_user()
+        for atool in all_fiancial_tools:
+            print(atool)
+
         return render_template('home.html', all_fiancial_tools = all_fiancial_tools)
 
 #Create a finacial tool

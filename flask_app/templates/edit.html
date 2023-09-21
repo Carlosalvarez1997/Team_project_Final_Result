@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap CSS -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
     <title>Edit Journal Entry</title>
     <style>
         label {
@@ -16,9 +17,32 @@
         .form-group {
             margin-bottom: 20px; /* Adding some space between form groups for a cleaner look */
         }
+ /* Styling for input fields */
+    input[type="text"],
+    input[type="date"],
+    input[type="number"] {
+        font-size: 16px;       /* Increase font size */
+        padding: 10px 15px;   /* Add padding to make it more spacious */
+        width: 100%;          /* Full width within its container, you can adjust this if necessary */
+        border: 1px solid #ccc; /* Optional: A subtle border */
+        border-radius: 5px;     /* Optional: Slightly rounded corners */
+    }
+    .container {
+        width: 40%; /* Set the width as per your requirement */
+        max-width: 800px; /* Maximum width it can have */
+    }
+    h1{
+        margin-left: 50%;
+        font-size: bold;
+        color: #db67d1;
+    }
+</style>
+
+
     </style>
 </head>
 <body class="edit-bg ">
+    <h1 class="Edit Trade Journal">Edit Trade Journal</h1>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <h2 class="navbar-brand">Hello, {{session['first_name']}}</h2>
         <div class="collapse navbar-collapse">
@@ -33,8 +57,9 @@
         </div>
     </nav>
     <body class="edit-bg">
-    <div class="container mt-5 transparent-bg p-4 rounded ">
+    <div class="container mt-5 transparent-bg p-4 rounded mx-auto">
         <!--<form action="/PUT THE ACTION NAME HERE FOR THE EDIT  POST METHOD" method="POST">
+            <input type="hidden" name="id" value="put jinja with the id for the trade">-->
             {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <div class="alert alert-warning">
@@ -44,7 +69,6 @@
                     </div>
                 {% endif %}
             {% endwith %}
-            <input type="hidden" name="id" value="put jinja with the id for the trade">-->
             <form action="/edit/journal/{{asset.id}}" method="post">
                 <input type="hidden" name="id" value="{{asset.id}}">
             <div class="form-group">
@@ -53,7 +77,7 @@
             </div>
             <div class="form-group">
                 <label for="trade">Trade Date & Time:</label>
-                <input type="date" class="form-control" id="trade_date" name="trade_date" value="{{asset.trade_date}}">
+                <input type="text" class="form-control" id="trade_date" name="trade_date" value="{{asset.trade_date}}">
             </div>
 
             <div class="form-group">
@@ -64,11 +88,11 @@
                 <label for="position">Position:</label>
                 <input class="form-control" type="text" value="{{asset.position}}" name="position">
             </div>
-            <div class="form-group">
-                <label for="profitorloss">ProfitorLoss:</label>
-                <input type="number" class="form-control" value="{{asset.profitorloss}}" name="profitorloss">
+            <div>
+                <label for="loss">Profit/Loss:</label>
+                <input type="text" value="{{asset.profitorLoss}}" name="profitorloss">
             </div>
-            <button class="btn btn-primary" type="submit">Update Journal Entry</button>
+            <input type="submit" value="Update Journal Entry">
         </form>
     </div>
     <!-- Bootstrap JS and its dependencies -->

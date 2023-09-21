@@ -4,21 +4,23 @@ from flask import flash, session
 from flask_app.models import user
 
 class Tool :
-    db = "finance_schema"
+    db = "finance"
     def __init__(self, data):
         self.id = data['id']
         self.name = data['name']
         self.trade_date = data['trade_date']
         self.asset = data['asset']
         self.position = data['position']
-        self.profitorloss = data['profitorloss']
+        self.profitorLoss = data['profitorLoss']
         self.created_at = data['created_at']
         self.updated_at = data['updated_at']
+        self.user_id = data['user_id']
         self.holder = ""
+
 
     @classmethod
     def store_asset(cls,data):
-        if not cls.validate_asset(cls, data):
+        if not cls.validate_asset(data):
             return False
         query= """
         INSERT INTO tool(name, trade_date, asset, position, profitorloss, user_id)
@@ -71,6 +73,7 @@ class Tool :
     @classmethod
     def edit_asset(cls, data):
         if not cls.validate_asset(data):
+            print(data)
             return False
         query ="""
         UPDATE tool
@@ -92,11 +95,14 @@ class Tool :
         result = connectToMySQL(cls.db).query_db(query,data)
         return
 
-    @staticmethod
+    @classmethod
     def validate_asset(cls,data):
         is_valid = True
         if len(data['name']) < 2:
             flash("Financial Tool Needs to be longer than 2 characters")
+            is_valid= False
+        if len(data['trade_date']) == "":
+            flash("You need a date time")
             is_valid= False
         if len(data['asset']) < 2:
             flash("asset type must be longer than 2 characters")

@@ -100,13 +100,6 @@ h1.login-heading {
     min-height: 100vh;
 }
 
-/* .edit-bg {
-    background-image: url("./images/home3.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    background-position: center center;
-    min-height: 100vh; */
 
 .transparent-bg {
     background-color: rgba(255, 255, 255, 0.6); /* Semi-transparent white background */
@@ -116,4 +109,12 @@ h1.login-heading {
 /* New CSS for Navbar */
 .navbar-theme {
     background-color: #007BFF; 
+}
+.edit-bg{
+    background-image: url("./images/edit.jpg.avif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center center;
+    min-height: 100vh;
 }

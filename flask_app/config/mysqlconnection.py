@@ -5,8 +5,8 @@ class MySQLConnection:
     def __init__(self, db):
         # change the user and password as needed
         connection = pymysql.connect(host = 'localhost',
-                                    user = 'root', 
-                                    password = 'MahRain1921', 
+                                    user = 'root',
+                                    password = 'Strawberries123!',
                                     db = db,
                                     charset = 'utf8mb4',
                                     cursorclass = pymysql.cursors.DictCursor,
@@ -37,7 +37,7 @@ class MySQLConnection:
                 return False
             finally:
                 # close the connection
-                self.connection.close() 
+                self.connection.close()
 # connectToMySQL receives the database we're using and uses it to create an instance of MySQLConnection
 def connectToMySQL(db):
     return MySQLConnection(db)
