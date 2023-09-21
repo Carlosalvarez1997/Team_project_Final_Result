@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Edit Journal Entry</title>
+    <style>
+        label {
+            font-size: 18px;  /* Making label medium-sized */
+            padding: 5px;     /* Padding to give some space around the text */
+            color: #333;      /* Changing label color to a dark gray */
+        }
+
+        .form-group {
+            margin-bottom: 20px; /* Adding some space between form groups for a cleaner look */
+        }
+    </style>
+</head>
+<body class="edit-bg ">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <h2 class="navbar-brand">Hello, {{session['first_name']}}</h2>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/home">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <body class="edit-bg">
+    <div class="container mt-5 transparent-bg p-4 rounded ">
+        <!--<form action="/PUT THE ACTION NAME HERE FOR THE EDIT  POST METHOD" method="POST">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <div class="alert alert-warning">
+                        {% for message in messages %}
+                            <p>{{ message }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <input type="hidden" name="id" value="put jinja with the id for the trade">-->
+            <form action="/edit/journal/{{asset.id}}" method="post">
+                <input type="hidden" name="id" value="{{asset.id}}">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input class="form-control" type="text" value="{{asset.name}}" name="name" >
+            </div>
+            <div class="form-group">
+                <label for="trade">Trade Date & Time:</label>
+                <input type="date" class="form-control" id="trade_date" name="trade_date" value="{{asset.trade_date}}">
+            </div>
+
+            <div class="form-group">
+                <label for="asset">Asset :</label>
+                <input class="form-control" type="text" value="{{asset.asset}}" name="asset" >
+            </div>
+            <div class="form-group">
+                <label for="position">Position:</label>
+                <input class="form-control" type="text" value="{{asset.position}}" name="position">
+            </div>
+            <div class="form-group">
+                <label for="profitorloss">ProfitorLoss:</label>
+                <input type="number" class="form-control" value="{{asset.profitorloss}}" name="profitorloss">
+            </div>
+            <button class="btn btn-primary" type="submit">Update Journal Entry</button>
+        </form>
+    </div>
+    <!-- Bootstrap JS and its dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

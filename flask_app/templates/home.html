@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Dashboard</title>
+
+</head>
+        <!-- Add custom styling here -->
+    <style>
+        .transparent-bg {
+            background-color: rgba(175, 190, 197, 0.7); /* Semi-transparent white */
+            border: 1px solid rgba(0, 0, 0, 0.1); /* A subtle border */
+            padding: 20px; /* Optional padding */
+            border-radius: 10px; /* Optional rounded corners */
+        }
+    </style>
+
+
+
+<body class="dashboard-bg">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light ">
+        <a class="navbar-brand" href="#">Hello, {{session['first_name']}}</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/users/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container mt-5 "> <!-- mt-5 gives some margin-top for space between nav and table -->
+        <table class="table table-bordered table-transparent ">
+            <tr>
+                <th>Name</th>
+                <th>Trade Date & Time</th>
+                <th>Asset</th>
+                <th>Position</th>
+                <th>ProfitorLoss</th>
+                <th>Edit</th>
+            </tr>
+            <tr>
+                {%for atool in all_fiancial_tools%}
+                <td>{{atool.name}}</td>
+                <td>{{atool.trade_date}}</td>
+                <td>{{atool.asset}}</td>
+                <td>{{atool.position}}</td>
+                <td>{{atool.profitorloss}}</td>
+            <th><a href="/edit/journal/{{atool.id}}">Edit</a></th>
+            <th><a href='/delete/journal/{{atool.id}}'>Stop Tracking</a></th>
+            </tr>
+            {%endfor%}
+        </table>
+        {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                    <div class="alert alert-warning alert-dismissible fade show">
+                        {% for message in messages %}
+                        <p>{{ message }}</p>
+                        {% endfor %}
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    </div>
+                    {% endif %}
+                {% endwith %}
+    <form action="/tool/create" method="post">
+        <input type="hidden" name="user_id" value="{{session['user_id']}}">
+
+
+        <div class="container mt-5">
+            <!-- Centering and Resizing Form -->
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <!-- Transparent Form Wrapper -->
+                    <div class="transparent-bg p-4 rounded">
+                        <form action="/tool/create" method="post">
+                            <input type="hidden" name="user_id" value="{{session['user_id']}}">
+                            <div class="form-group">
+                                <label for="name">Name:</label>
+                                <input type="text" class="form-control" id="name" name="name">
+                            </div>
+                            <div class="form-group">
+                                <label for="trade">Trade Date:</label>
+                                <input type="date" class="form-control" id="trade_date" name="trade_date">
+                            </div>
+                            <div class="form-group">
+                                <label for="asset">Asset Type:</label>
+                                <input type="text" class="form-control" id="asset" name="asset">
+                            </div>
+                            <div class="form-group">
+                                <label for="position">Position:</label>
+                                <input type="text" class="form-control" id="position" name="position">
+                            </div>
+                            <div class="form-group">
+                                <label for="profitorloss">ProfitorLoss:</label>
+                                <input type="number" class="form-control" id="profitorloss" name="profitorloss">
+                            </div>
+                            <button type="submit" class="btn btn-primary">Track Asset</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
